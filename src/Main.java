@@ -27,19 +27,19 @@ public class Main {
                     altaEquipo(equipos);
                     break;
                 case 2:
-                    altaJugadores(equipos,jugador);
+                    altaJugadores(equipos);
                     break;
                 case 3:
                     mostrarJugadoresPorEquipo(equipos);
                     break;
                 case 4:
-                    marcarMejorJugador(equipos, jugador);
+                    marcarMejorJugador(equipos);
                     break;
                 case 5:
-
+                    anadirKmRecorridos(equipos);
                     break;
                 case 6:
-                    listarJugadoresFederados(equipos, jugador);
+                    listarJugadoresFederados(equipos);
                     break;
                 case 7:
                     System.out.println("Saliendo...");
@@ -68,13 +68,13 @@ public class Main {
                 op = sn.nextInt();
                 switch (op) {
                     case 1:
-                        equipos[i].setDivision(Division.Primera_División);
+                        equipos[i].setDivision(Division.Primera_Division);
                         break;
                     case 2:
-                        equipos[i].setDivision(Division.Segunda_División);
+                        equipos[i].setDivision(Division.Segunda_Division);
                         break;
                     case 3:
-                        equipos[i].setDivision(Division.Tercera_División);
+                        equipos[i].setDivision(Division.Tercera_Division);
                         break;
                     default:
                         System.out.println("ERROR. Opción no válida");
@@ -95,7 +95,7 @@ public class Main {
         op = sn.nextInt();
         return op;
     }
-    public static void altaJugadores(Equipo[] equipos, Jugador jugador){
+    public static void altaJugadores(Equipo[] equipos){
         Scanner sn = new Scanner(System.in);
         int op = mostrarEquipos(equipos);
         String temp_s;
@@ -103,6 +103,7 @@ public class Main {
         Jugador[] jugadores = new Jugador[JUGADORES];
 
         for (int i = 0; i < JUGADORES; i++) {
+            Jugador jugador = new Jugador();
             System.out.println("Nombre: ");
             temp_s = sn.next();
             jugador.setNombre(temp_s);
@@ -122,20 +123,50 @@ public class Main {
         System.out.println(Arrays.toString(equipos[op].getJugadores()));
         return op;
     }
-    public static void marcarMejorJugador(Equipo[] equipos, Jugador jugador){
+    public static void marcarMejorJugador(Equipo[] equipos){
         Scanner sn = new Scanner(System.in);
         int op = mostrarJugadoresPorEquipo(equipos);
         System.out.println("Introduzca el nº de dorsal del mejor jugador: ");
         int n_dorsal = sn.nextInt();
-        jugador = equipos[op].identificarMejor(n_dorsal);
-        equipos[op].marcarMejor(jugador);
+        Jugador[] jugadores = equipos[op].getJugadores();
+        for (int i = 0; i < JUGADORES; i++){
+            Jugador jugador = jugadores[i];
+            if (n_dorsal == jugador.getnDorsal()){
+                jugador.incrementarMejorPartido(jugador);
+                break;
+            }
+            jugadores[i] = jugador;
+        }
+        equipos[op].setJugadores(jugadores);
     }
 
+    public static void anadirKmRecorridos (Equipo[] equipos){
+        Scanner sn = new Scanner(System.in);
+        int op = mostrarJugadoresPorEquipo(equipos);
+        Jugador[] jugadores = equipos[op].getJugadores();
+        for (int i = 0; i < JUGADORES; i++){
+            Jugador jugador = new Jugador();
+            jugador = jugadores[i];
+            System.out.println("Introduzca los km recorridos del dorsal "+ jugador.getnDorsal());
+            float km_recorrido = sn.nextFloat();
+            if (jugador.getKmRecorrido() == 0) {
+                jugador.setKmRecorrido(km_recorrido);
+                jugador.setNumPartidos(1);
+                jugadores[i] = jugador;
 
-    public static void listarJugadoresFederados(Equipo[] equipo, Jugador jugador){
+            } else if(jugador.getKmRecorrido() > 0){
+                jugador.setKmRecorrido(jugador.getKmRecorrido()+km_recorrido);
+                jugador = jugador.incrementarNumPartido(jugador);
+                jugadores[i] = jugador;
+            }
+        }
+        equipos[op].setJugadores(jugadores);
+    }
+
+    public static void listarJugadoresFederados(Equipo[] equipo){
         for (Equipo equipo1 : equipo){
             for (Jugador jugadors : equipo1.getJugadores()){
-                System.out.println(equipo1.getNombre() + " | " + jugadors.getNombre() + " | " + jugadors.getKmRecorrido() + " | " + jugadors.getMejorDelPartido());
+                System.out.println(equipo1.getNombre() + " | " + jugadors.getNombre() + " | " + jugadors.mediaKm(jugadors) + " | " + jugadors.getMejorDelPartido());
             }
         }
     }

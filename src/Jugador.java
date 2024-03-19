@@ -49,7 +49,7 @@ public class Jugador {
     }
 
     public Jugador incrementarMejorPartido (Jugador jugador){
-        jugador.setMejorDelPartido(getMejorDelPartido() + 1);
+        jugador.setMejorDelPartido(jugador.getMejorDelPartido() + 1);
         return jugador;
     }
     public int getNumPartidos() {
@@ -59,6 +59,11 @@ public class Jugador {
     public void setNumPartidos(int numPartidos) {
         this.numPartidos = numPartidos;
     }
+    public Jugador incrementarNumPartido (Jugador jugador){
+        jugador.setNumPartidos(jugador.getNumPartidos() + 1);
+        return jugador;
+    }
+
 
     // TOSTRING
 
@@ -76,7 +81,18 @@ public class Jugador {
 
 
     // Cálculo de la media de kmRecorridos
-
+    public float mediaKm(Jugador jugador) {
+        float media = 0.0F;
+        boolean b = false;
+        if (jugador.getNumPartidos() != 0) {
+            media = jugador.getKmRecorrido() / jugador.getNumPartidos();
+            b = true;
+        }
+        if (b == false){
+            media = -1;
+        }
+        return media;
+    }
 
     // Indica si es el mejor del partido.
 
