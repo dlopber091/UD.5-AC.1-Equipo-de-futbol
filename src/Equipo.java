@@ -24,8 +24,8 @@ public class Equipo {
         return jugadores;
     }
 
-    public void setJugadores(Jugador jugador, int i) {
-        this.jugadores[i] = jugador;
+    public void setJugadores(Jugador[] jugadores) {
+        this.jugadores = jugadores;
     }
     public Jugador identificarMejor(int num_dorsal) {
         Jugador jugador1 = null;

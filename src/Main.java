@@ -100,6 +100,7 @@ public class Main {
         int op = mostrarEquipos(equipos);
         String temp_s;
         int temp_i;
+        Jugador[] jugadores = new Jugador[JUGADORES];
 
         for (int i = 0; i < JUGADORES; i++) {
             System.out.println("Nombre: ");
@@ -111,10 +112,10 @@ public class Main {
             System.out.println("N.º dorsal: ");
             temp_i = sn.nextInt();
             jugador.setnDorsal((short)temp_i);
-            jugador.setMejorDelPartido(0);
+            jugadores[i] = jugador;
 
-            equipos[op].setJugadores(jugador,i);
         }
+        equipos[op].setJugadores(jugadores);
     }
     public static int mostrarJugadoresPorEquipo (Equipo[] equipos) {
         int op = mostrarEquipos(equipos);
