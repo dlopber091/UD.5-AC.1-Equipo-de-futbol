@@ -66,7 +66,6 @@ public class Jugador {
 
 
     // TOSTRING
-
     @Override
     public String toString() {
         return "Jugador{" +
@@ -78,7 +77,6 @@ public class Jugador {
                 ", numPartidos=" + numPartidos +
                 '}';
     }
-
 
     // Cálculo de la media de kmRecorridos
     public float mediaKm(Jugador jugador) {
