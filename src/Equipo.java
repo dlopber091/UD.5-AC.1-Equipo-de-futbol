@@ -2,12 +2,15 @@ import java.util.Arrays;
 
 public class Equipo {
     final static int JUGADORES = 2;
-    private Jugador[] jugadores = new Jugador[JUGADORES];
+    private Jugador[] jugadores;
     private String nombre;
     private Division division;
 
     // CONSTRUCTOR
     public Equipo() {
+        this.jugadores = new Jugador[JUGADORES];
+        this.nombre = null;
+        this.division = null;
     }
 
     // GETTERS Y SETTERS

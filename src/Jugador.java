@@ -5,6 +5,12 @@ public class Jugador {
     private int numPartidos,  mejorDelPartido;
     // CONSTRUCTOR
     public Jugador() {
+        this.nombre = null;
+        this.apellido = null;
+        this.nDorsal = 0;
+        this.kmRecorrido = 0;
+        this.numPartidos = 0;
+        this.mejorDelPartido = 0;
     }
 
     // GETTERS Y SETTERS
